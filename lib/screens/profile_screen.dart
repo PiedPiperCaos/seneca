@@ -6,25 +6,24 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Stack(
+      body: Column(
         children: [
           Container(
             child: Column(
               children: [
                 Expanded(
-                  flex: 2,
-                  child: Container(
-                    color: ,
-                  )
-                ),
+                    flex: 2,
+                    child: Container(
+                      color: Colors.blue,
+                    )),
                 Expanded(
-                  flex: 8,
-                  child: Container()
-                )
+                    flex: 8,
+                    child: Container(
+                      color: Colors.white,
+                    ))
               ],
-            ),  
-          )
+            ),
+          ),
         ],
       ),
     );

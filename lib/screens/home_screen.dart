@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:seneca/screens/screens.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -16,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Color.fromARGB(255, 1, 84, 156),
+      resizeToAvoidBottomInset: false,
       body: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -86,15 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: Colors.white,
                             child: TextButton(
                                 onPressed: () {
-                                  if (_nombre == 'Carlos' && _pass == 'Amigo') {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute<void>(
-                                        builder: (BuildContext context) =>
-                                            ProfileScreen(),
-                                      ),
-                                    );
-                                  }
+                                  Navigator.pushNamed(context, 'profile');
                                 },
                                 child: Text('Entrar'))),
                         Divider(

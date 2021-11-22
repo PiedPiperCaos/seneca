@@ -15,12 +15,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Material App',
       theme: ThemeData.dark(),
-      home: HomeScreen(),
-      // initialRoute: 'home_screen',
-      // routes: {
-      //   'home_screen': (_) => HomeScreen(),
-      //   'profile': (_) => ProfileScreen(),
-      // },
+      initialRoute: 'home_screen',
+      routes: {
+        'home_screen': (BuildContext context) => HomeScreen(),
+        'profile': (BuildContext context) => ProfileScreen(),
+      },
     );
   }
 }
