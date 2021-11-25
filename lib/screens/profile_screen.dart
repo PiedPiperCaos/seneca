@@ -16,7 +16,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             Container(
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.only(top: 30, left: 20, right: 20),
                 child: Column(
                   children: [
                     Text(
@@ -26,33 +26,7 @@ class ProfileScreen extends StatelessWidget {
                         fontSize: 50,
                       ),
                     ),
-                    Container(
-                      color: Colors.red,
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Expanded(child: Text('Martinez Megias, Carlos')),
-                              Expanded(
-                                child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Icon(Icons.people)),
-                              )
-                            ],
-                          ),
-                          Align(
-                            alignment: Alignment.bottomLeft,
-                            child: Column(
-                              children: [
-                                Text('I.E.S. Jándula'),
-                                Text('Perfil dirección')
-                              ],
-                            ),
-                          ),
-                          Row()
-                        ],
-                      ),
-                    ),
+                    TarjetaFlotante(),
                     Container()
                   ],
                 ),
@@ -60,6 +34,99 @@ class ProfileScreen extends StatelessWidget {
             )
           ],
         ),
+      ),
+    );
+  }
+}
+
+class TarjetaFlotante extends StatelessWidget {
+  const TarjetaFlotante({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 130,
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
+        borderRadius: BorderRadius.circular(5),
+        color: Colors.white,
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                  margin: EdgeInsets.only(left: 10, top: 10),
+                  child: Text(
+                    'Martinez Megias, Carlos',
+                    style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold),
+                  )),
+              Container(
+                  margin: EdgeInsets.only(left: 110),
+                  child: Icon(Icons.people, color: Colors.black))
+            ],
+          ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: 10, top: 10),
+                  child: Text(
+                    'I.E.S. Jándula',
+                    style: TextStyle(color: Colors.deepPurple),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 10),
+                  child: Text(
+                    'Perfil dirección',
+                    style: TextStyle(color: Colors.deepPurple),
+                  ),
+                )
+              ],
+            ),
+          ),
+          Container(
+            height: 50,
+            color: Colors.blue,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.only(left: 30),
+                    child: Row(
+                      children: [Icon(Icons.alarm), Text('Avisos')],
+                    ),
+                  ),
+                ),
+                VerticalDivider(
+                  color: Colors.white,
+                ),
+                Expanded(
+                  child: Container(
+                    child: Row(children: [
+                      Icon(Icons.book),
+                      Text('Bandeja de firmas')
+                    ]),
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

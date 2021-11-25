@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:seneca/models/usuarios_response.dart';
+import 'package:seneca/providers/usuarios_provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -14,6 +17,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final usuariosProvider = Provider.of<UsuariosProvider>(context);
+    final listaUsuarios = usuariosProvider.usuarios;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -28,10 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Center(
           child: Column(
             children: [
-              Divider(
-                height: 150,
-              ),
               Container(
+                margin: EdgeInsets.only(top: 100),
                 child: Text(
                   'iSéneca',
                   style: TextStyle(fontFamily: 'ErasDemi', fontSize: 75),
@@ -45,6 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           horizontal: 10.0, vertical: 20.0),
                       children: [
                         Container(
+                          margin: EdgeInsets.only(bottom: 10),
                           child: TextField(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
@@ -59,7 +64,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                           ),
                         ),
-                        Divider(),
                         TextField(
                           obscureText: _esconder,
                           decoration: InputDecoration(
@@ -80,17 +84,25 @@ class _HomeScreenState extends State<HomeScreen> {
                             });
                           },
                         ),
-                        Divider(),
                         Container(
-                            color: Colors.white,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Colors.white,
+                            ),
+                            height: 55,
+                            margin: EdgeInsets.only(top: 20, bottom: 70),
                             child: TextButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(context, 'profile');
+                                  for (int i = 0;
+                                      i < listaUsuarios.length;
+                                      i++) {
+                                    if (_nombre == listaUsuarios[i].usuario &&
+                                        _pass == listaUsuarios[i].pass) {
+                                      Navigator.pushNamed(context, 'profile');
+                                    }
+                                  }
                                 },
                                 child: Text('Entrar'))),
-                        Divider(
-                          height: 70,
-                        ),
                         Container(
                           child: Center(
                             child: Container(
@@ -114,10 +126,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                         ),
-                        Divider(
-                          height: 120,
-                        ),
                         Container(
+                          margin: EdgeInsets.only(top: 170),
                           child: Row(
                             children: [
                               Image(
@@ -144,18 +154,16 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                         ),
-                        Divider(
-                          height: 10,
-                        ),
                         Container(
+                            margin: EdgeInsets.only(top: 10),
                             child: Text(
-                          'v11.3.0',
-                          textAlign: TextAlign.end,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        )),
+                              'v11.3.0',
+                              textAlign: TextAlign.end,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                            )),
                       ]),
                 ),
               ),

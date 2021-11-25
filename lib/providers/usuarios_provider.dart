@@ -4,12 +4,13 @@ import 'package:http/http.dart' as http;
 
 class UsuariosProvider extends ChangeNotifier {
   String idSheet = '1uw_yBPD6yQ9pZl7DWdhnBO-lFJIYwpO_7uUXW_eh8jA/';
-  String baseURL = 'opensheet.vercel.app/';
+  String baseURL = 'opensheet.vercel.app';
   String hojaSheet = 'hoja1';
 
-  List<Result> usuarios = [];
+  List<Usuarios> usuarios = [];
 
   UsuariosProvider() {
+    print('Se ha inizializado el provider');
     this.getUsuarios();
   }
 
@@ -18,10 +19,12 @@ class UsuariosProvider extends ChangeNotifier {
     respuesta = '{"results":' + respuesta + "}";
     final credencialesResponse = UsuarioResponse.fromJson(respuesta);
     usuarios = [...credencialesResponse.results];
+
+    notifyListeners();
   }
 
   Future<String> _getJsonData() async {
-    final url = Uri.http(baseURL, idSheet + hojaSheet);
+    final url = Uri.https(baseURL, idSheet + hojaSheet, {});
     final response = await http.get(url);
     return response.body;
   }
