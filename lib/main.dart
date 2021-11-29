@@ -1,9 +1,26 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:seneca/providers/usuarios_provider.dart';
 import 'package:seneca/screens/screens.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:seneca/services/firebase_service.dart';
 
-void main() => runApp(AppState());
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized;
+  await Firebase.initializeApp();
+
+  FirebaseService service = new FirebaseService();
+  try {
+    await service.signOutFromGoogle();
+  } catch (e) {
+    if (e is FirebaseAuthException) {
+      print(e.message!);
+    }
+  }
+
+  runApp(AppState());
+}
 
 class AppState extends StatelessWidget {
   @override

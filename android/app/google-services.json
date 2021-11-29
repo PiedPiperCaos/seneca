@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "28905271663",
+    "project_id": "carlos-seneca",
+    "storage_bucket": "carlos-seneca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:28905271663:android:17f20ba26cadd6c503b89a",
+        "android_client_info": {
+          "package_name": "com.example.seneca"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "28905271663-0761thmqquidkqugsq0nvfidann355o5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNvMk3hNth7vEQvgirj5twDWVBjhJ0yXo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "28905271663-0761thmqquidkqugsq0nvfidann355o5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

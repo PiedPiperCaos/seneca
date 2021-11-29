@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:seneca/models/usuarios_response.dart';
 import 'package:seneca/providers/usuarios_provider.dart';
+import 'package:seneca/services/google_sign_in.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -103,6 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   }
                                 },
                                 child: Text('Entrar'))),
+                        GoogleSignIn(),
                         Container(
                           child: Center(
                             child: Container(
