@@ -37,7 +37,7 @@ class _GoogleSignInState extends State<GoogleSignIn> {
                 });
                 FirebaseService service = new FirebaseService();
                 try {
-                  await service.signInWithGoogle();
+                  await service.signInwithGoogle();
 
                   User? user = FirebaseAuth.instance.currentUser;
                   String? usuarioGoogle = user!.email;

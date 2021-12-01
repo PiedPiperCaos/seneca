@@ -14,18 +14,19 @@ class UsuariosProvider extends ChangeNotifier {
     this.getUsuarios();
   }
 
+  Future<String> _getJsonData() async {
+    final url = Uri.http(baseURL, idSheet + hojaSheet);
+    final response = await http.get(url);
+    return response.body;
+  }
+
   getUsuarios() async {
     String respuesta = await _getJsonData();
     respuesta = '{"results":' + respuesta + "}";
-    final credencialesResponse = UsuarioResponse.fromJson(respuesta);
-    usuarios = [...credencialesResponse.results];
 
+    final usuariosResponse = UsuarioResponse.fromJson(respuesta);
+
+    usuarios = usuariosResponse.results;
     notifyListeners();
-  }
-
-  Future<String> _getJsonData() async {
-    final url = Uri.https(baseURL, idSheet + hojaSheet, {});
-    final response = await http.get(url);
-    return response.body;
   }
 }

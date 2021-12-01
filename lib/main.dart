@@ -7,7 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:seneca/services/firebase_service.dart';
 
 Future main() async {
-  WidgetsFlutterBinding.ensureInitialized;
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
   FirebaseService service = new FirebaseService();

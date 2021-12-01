@@ -90,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: Colors.white,
                             ),
                             height: 55,
-                            margin: EdgeInsets.only(top: 20, bottom: 70),
+                            margin: EdgeInsets.only(top: 20, bottom: 7),
                             child: TextButton(
                                 onPressed: () {
                                   for (int i = 0;
@@ -105,6 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Text('Entrar'))),
                         GoogleSignIn(),
                         Container(
+                          margin: EdgeInsets.only(top: 20),
                           child: Center(
                             child: Container(
                               decoration: BoxDecoration(
@@ -128,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(top: 170),
+                          margin: EdgeInsets.only(top: 150),
                           child: Row(
                             children: [
                               Image(
