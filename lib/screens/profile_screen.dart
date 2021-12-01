@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:seneca/services/firebase_service.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -6,36 +8,83 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Stack(
-          children: [
-            Column(
-              children: [
-                Background(),
-              ],
-            ),
-            Container(
-              child: Container(
-                padding: EdgeInsets.only(top: 30, left: 20, right: 20),
-                child: Column(
-                  children: [
-                    Text(
-                      'iSéneca',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 50,
-                      ),
-                    ),
-                    TarjetaFlotante(),
-                    Container()
-                  ],
-                ),
+        body: Container(
+          child: Stack(
+            children: [
+              Column(
+                children: [
+                  Background(),
+                ],
               ),
-            )
-          ],
+              Container(
+                child: Container(
+                  padding: EdgeInsets.only(top: 30, left: 20, right: 20),
+                  child: Column(
+                    children: [
+                      Text(
+                        'iSéneca',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 50,
+                        ),
+                      ),
+                      TarjetaFlotante(),
+                      Container(
+                        child: Table(
+                          border: TableBorder(
+                              verticalInside:
+                                  BorderSide(color: Colors.grey, width: 0.5),
+                              horizontalInside:
+                                  BorderSide(color: Colors.grey, width: 0.5)),
+                          children: [
+                            TableRow(children: [
+                              GestureDetector(
+                                  child: SingleCard(
+                                      icon: Icons.people,
+                                      text: "Alumnado del centro")),
+                              GestureDetector(
+                                child: SingleCard(
+                                    icon: Icons.emoji_people_outlined,
+                                    text: "Personal del centro"),
+                              ),
+                              SingleCard(
+                                  icon: Icons.sick, text: "Información Covid"),
+                            ]),
+                            TableRow(children: [
+                              SingleCard(
+                                  icon: Icons.tablet_mac_outlined,
+                                  text: "Tablón de anuncios"),
+                              SingleCard(
+                                  icon: Icons.calendar_today,
+                                  text: 'Calendario escolar'),
+                              Container()
+                            ])
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
-      ),
-    );
+        bottomNavigationBar: BottomNavigationBar(
+            showUnselectedLabels: true,
+            selectedItemColor: Color(0xFF02569d),
+            unselectedItemColor: Colors.grey,
+            backgroundColor: Color.fromRGBO(55, 57, 84, 1),
+            currentIndex: 0,
+            items: [
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Inicio"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.timelapse), label: "Agenda"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.chat_bubble_outline),
+                  label: "Comunicaciones"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.more_vert_sharp), label: "Menú"),
+            ]));
   }
 }
 
@@ -47,86 +96,162 @@ class TarjetaFlotante extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 130,
       decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: Offset(0, 3), // changes position of shadow
-          ),
+              spreadRadius: 2,
+              blurRadius: 0.7,
+              color: Colors.grey,
+              offset: Offset(0, 1))
         ],
-        borderRadius: BorderRadius.circular(5),
-        color: Colors.white,
       ),
+      width: 400,
+      height: 200,
       child: Column(
         children: [
-          Row(
-            children: [
-              Container(
-                  margin: EdgeInsets.only(left: 10, top: 10),
-                  child: Text(
-                    'Martinez Megias, Carlos',
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold),
-                  )),
-              Container(
-                  margin: EdgeInsets.only(left: 110),
-                  child: Icon(Icons.people, color: Colors.black))
-            ],
-          ),
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 10, top: 10),
-                  child: Text(
-                    'I.E.S. Jándula',
-                    style: TextStyle(color: Colors.deepPurple),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 10),
-                  child: Text(
-                    'Perfil dirección',
-                    style: TextStyle(color: Colors.deepPurple),
-                  ),
-                )
-              ],
-            ),
-          ),
-          Container(
-            height: 50,
-            color: Colors.blue,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    margin: EdgeInsets.only(left: 30),
+          _UsuarioOpciones(),
+          _LineaBotones(),
+        ],
+      ),
+    );
+  }
+}
+
+class _UsuarioOpciones extends StatelessWidget {
+  const _UsuarioOpciones({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      flex: 7,
+      child: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 10, top: 15),
                     child: Row(
-                      children: [Icon(Icons.alarm), Text('Avisos')],
+                      children: [
+                        Text(
+                          "Martinez Megias, Carlos",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ),
+                        Icon(Icons.people)
+                      ],
                     ),
                   ),
-                ),
-                VerticalDivider(
-                  color: Colors.white,
-                ),
-                Expanded(
-                  child: Container(
-                    child: Row(children: [
-                      Icon(Icons.book),
-                      Text('Bandeja de firmas')
-                    ]),
-                  ),
-                )
-              ],
+                  Expanded(child: Container()),
+                  Container(
+                    margin: EdgeInsets.only(right: 10, top: 15),
+                    child: Row(
+                      children: [
+                        IconButton(
+                            onPressed: () async {
+                              Navigator.pushNamed(context, "home_screen");
+                              FirebaseService service = new FirebaseService();
+                              try {
+                                await service.signOutFromGoogle();
+                              } catch (e) {
+                                if (e is FirebaseAuthException) {
+                                  print(e.message!);
+                                }
+                              }
+                            },
+                            icon: Icon(
+                              Icons.people,
+                              color: Colors.black,
+                            )),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
-          )
-        ],
+            SizedBox(
+              height: 5,
+            ),
+            Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  margin: EdgeInsets.only(left: 10, top: 7),
+                  child: Column(children: [
+                    Text("I.E.S. Jándula",
+                        style: TextStyle(
+                            color: Colors.blue[300],
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold)),
+                    Text("Perfil alumno",
+                        style: TextStyle(
+                            color: Colors.blue[300],
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold))
+                  ]),
+                )),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _LineaBotones extends StatelessWidget {
+  const _LineaBotones({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      flex: 3,
+      child: Container(
+        height: 65,
+        width: double.infinity,
+        color: Colors.blue,
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 25),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GestureDetector(
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.alarm,
+                      color: Colors.white,
+                    ),
+                    Text("Avisos", style: TextStyle(color: Colors.white)),
+                  ],
+                ),
+              ),
+              Expanded(child: Container()),
+              VerticalDivider(
+                color: Colors.white,
+              ),
+              Expanded(child: Container()),
+              GestureDetector(
+                child: Row(
+                  children: [
+                    Icon(Icons.book, color: Colors.white),
+                    Text("Bandeja de firmas",
+                        style: TextStyle(color: Colors.white))
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -157,5 +282,47 @@ class Background extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class SingleCard extends StatelessWidget {
+  final IconData icon;
+  final String text;
+
+  const SingleCard({Key? key, required this.icon, required this.text})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    return Container(
+        margin: EdgeInsets.symmetric(horizontal: size.width * 0.01),
+        height: size.height * 0.27,
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.only(right: 45, top: 60),
+              child: CircleAvatar(
+                radius: 0,
+                child: Icon(
+                  this.icon,
+                  size: 40,
+                  color: Colors.blue,
+                ),
+              ),
+            ),
+            SizedBox(height: 45),
+            Container(
+              padding: EdgeInsets.only(left: 20),
+              child: Text(
+                this.text,
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+            )
+          ],
+        ));
   }
 }

@@ -44,8 +44,13 @@ class _GoogleSignInState extends State<GoogleSignIn> {
                   if (_comprobarCredenciales(lista, usuarioGoogle)) {
                     Navigator.pushNamed(context, "profile");
                   } else {
-                    //ShowDialog
                     await service.signOutFromGoogle();
+                    showDialog<String>(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text('Usuario sin privilegios'),
+                      ),
+                    );
                   }
                 } catch (e) {
                   if (e is FirebaseAuthException) {
