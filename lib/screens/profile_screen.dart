@@ -40,22 +40,23 @@ class ProfileScreen extends StatelessWidget {
                             TableRow(children: [
                               GestureDetector(
                                   child: SingleCard(
-                                      icon: Icons.people,
+                                      image: AssetImage("assets/sombrero.png"),
                                       text: "Alumnado del centro")),
                               GestureDetector(
                                 child: SingleCard(
-                                    icon: Icons.emoji_people_outlined,
+                                    image: AssetImage("assets/profesor.png"),
                                     text: "Personal del centro"),
                               ),
                               SingleCard(
-                                  icon: Icons.sick, text: "Información Covid"),
+                                  image: AssetImage("assets/covid.png"),
+                                  text: "Información Covid"),
                             ]),
                             TableRow(children: [
                               SingleCard(
-                                  icon: Icons.tablet_mac_outlined,
+                                  image: AssetImage("assets/campana.png"),
                                   text: "Tablón de anuncios"),
                               SingleCard(
-                                  icon: Icons.calendar_today,
+                                  image: AssetImage("assets/calendario.png"),
                                   text: 'Calendario escolar'),
                               Container()
                             ])
@@ -286,10 +287,10 @@ class Background extends StatelessWidget {
 }
 
 class SingleCard extends StatelessWidget {
-  final IconData icon;
+  final AssetImage image;
   final String text;
 
-  const SingleCard({Key? key, required this.icon, required this.text})
+  const SingleCard({Key? key, required this.image, required this.text})
       : super(key: key);
 
   @override
@@ -300,25 +301,25 @@ class SingleCard extends StatelessWidget {
         margin: EdgeInsets.symmetric(horizontal: size.width * 0.01),
         height: size.height * 0.27,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              padding: EdgeInsets.only(right: 45, top: 60),
+              padding: EdgeInsets.only(right: 10, top: 30),
               child: CircleAvatar(
-                radius: 0,
-                child: Icon(
-                  this.icon,
-                  size: 40,
-                  color: Colors.blue,
+                radius: 40,
+                backgroundColor: Colors.white,
+                child: Image(
+                  image: this.image,
                 ),
               ),
             ),
-            SizedBox(height: 45),
             Container(
               padding: EdgeInsets.only(left: 20),
               child: Text(
                 this.text,
                 style: TextStyle(
-                  fontSize: 18,
+                  color: Colors.black,
+                  fontSize: 13,
                 ),
               ),
             )
